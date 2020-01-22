@@ -33,34 +33,32 @@ for file in os.listdir('ESC-50-Processed/tracts/hdf5/2019-10-31/'):
 
 
 
+def trainer(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3, random_state=0)
+    regressor = LinearRegression()
+    regressor.fit(X_train, y_train)
+    return (X_train, X_test, y_train, y_test)
 
-
-'''
-To build our model, we use the histogram as our feature
-
-'''
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3, random_state=0)
-regressor = LinearRegression()
-regressor.fit(X_train, y_train)
 
 # Visualizing the Training set results
-viz_train = plt
-viz_train.scatter(X_train, y_train, color='red')
-viz_train.plot(X_train, regressor.predict(X_train), color='blue')
-viz_train.title('Energy Vs f_tract, s_tract')
-viz_train.xlabel('f_tract, s_tract')
-viz_train.ylabel('Energy')
-viz_train.show()
+def trained_visualizer(X_train, y_train):
+    viz_train = plt
+    viz_train.scatter(X_train, y_train, color='red')
+    viz_train.plot(X_train, regressor.predict(X_train), color='blue')
+    viz_train.title('Energy Vs f_tract, s_tract')
+    viz_train.xlabel('f_tract, s_tract')
+    viz_train.ylabel('Energy')
+    viz_train.show()
 
 # Visualizing the Test set results
-viz_test = plt
-viz_test.scatter(X_test, y_test, color='red')
-viz_test.plot(X_train, regressor.predict(X_train), color='blue')
-viz_test.title('Energy Vs f_tract, s_tract')
-viz_test.xlabel('f_tract, s_tract')
-viz_test.ylabel('Energy')
-viz_test.show()
+def test_visualizer(X_test, y_test):
+    viz_test = plt
+    viz_test.scatter(X_test, y_test, color='red')
+    viz_test.plot(X_train, regressor.predict(X_train), color='blue')
+    viz_test.title('Energy Vs f_tract, s_tract')
+    viz_test.xlabel('f_tract, s_tract')
+    viz_test.ylabel('Energy')
+    viz_test.show()
 
 #predicting sound
 def predict(df_item):
